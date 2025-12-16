@@ -3,12 +3,22 @@
 // import {DB_NAME} from "./constants";
 import dotenv from "dotenv";
 import connectDB from "./db/db.js";
-
+import express  from 'express';
 // dotenv.config({ path: "./env" });
 dotenv.config();   // will automatically load ".env"
+const app = express();
 
-
-connectDB();
+connectDB().then(()=>{
+    app.on("error" , (err)=> {
+        console.log("error on indexjs in app" , err)
+    })
+    app.listen(process.env.PORT || 8000 , ()=>{
+        console.log("db connected sucessfully")
+    })
+}).catch((err) => {
+  console.error("Failed to connect to the database!! :", err);
+  process.exit(1);
+} );
 
 
 
