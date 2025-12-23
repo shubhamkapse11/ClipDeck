@@ -94,4 +94,4 @@ return token ;
 }
 
 
-export const Uset = mongoose.model("User", userSchema);
+export const User = mongoose.model("User", userSchema);
