@@ -1,23 +1,15 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-const likeSchema = new mongoose.Schema({
-    content:{
-        type:String, 
-        required:true
+const tweetSchema = new mongoose.Schema({
+    content: {
+        type: String,
+        required: true
     },
-    owner:{
-        type:Schema.Types.ObjectId,
-        ref:"User"
-    },
-    // comment:{
-    //     type:Schema.Types.ObjectId,
-    //     ref:"Comments"
-    // },
-    // tweet:{
-    //     type:Schema.Types.ObjectId,
-    //     ref:"Tweet"
-    // }
-}, {timestamps:true})
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }
+}, { timestamps: true })
 
-export const Like = mongoose.model("Like" , likeSchema);
+export const Tweet = mongoose.model("Tweet", tweetSchema);
