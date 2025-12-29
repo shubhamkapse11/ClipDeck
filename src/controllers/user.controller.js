@@ -158,7 +158,7 @@ const logOutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
-      $set: { refreshToken: undefined },
+      $unset: { refreshToken: 1 },
     },
     {
       new: true,
@@ -238,7 +238,7 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
   user.save({ validateBeforeSave: false })
 
   return res.status(200)
-    .json(new ApiResponse(200, {}, "password sucessfully changed"))
+    .json(new ApiResponse(200, {}, "password successfully changed"))
 
 })
 
@@ -262,7 +262,7 @@ const updateAccountdetails = asyncHandler(async (req, res) => {
     { new: true }
   ).select("-password")
   return res.status(200)
-    .json(new ApiResponse(200, user, "acc detail updated sucessfully"))
+    .json(new ApiResponse(200, user, "account details updated successfully"))
 })
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
@@ -287,7 +287,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     { new: true }
   ).select("-password ")
 
-  return res.status(200).json(new ApiResponse(200, user, "avatar image updated sucessfully"))
+  return res.status(200).json(new ApiResponse(200, user, "avatar image updated successfully"))
 
 }
 
@@ -314,7 +314,7 @@ const updateUserCoverImg = asyncHandler(async (req, res) => {
     },
     { new: true }
   ).select("-password ")
-  return res.status(200).json(new ApiResponse(200, user, "cover image updated sucessfully"))
+  return res.status(200).json(new ApiResponse(200, user, "cover image updated successfully"))
 
 }
 )
@@ -361,7 +361,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         }
       }
     },
-    { //values you wa to provide  only provide nessary and required values
+    { //values you wan to provide  only provide nessary and required values
       $project: {
         fullname: 1,
         username: 1,
@@ -381,7 +381,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
     throw new ApiError(404, "channel not found")
   }
 
-  return res.status(200).json(new ApiResponse(200, channel[0], "channel profile fetched sucessfully"))
+  return res.status(200).json(new ApiResponse(200, channel[0], "channel profile fetched successfully"))
 })
 
 const getWatchHistory = asyncHandler(async (req, res) => {
@@ -428,11 +428,12 @@ const getWatchHistory = asyncHandler(async (req, res) => {
     }
   ])
 
-  return res.status(200).json(new ApiResponse(200, user[0].watchHistory, "watch history fetched sucessfully"))
+  return res.status(200).json(new ApiResponse(200, user[0].watchHistory, "watch history fetched successfully"))
 
 })
 
 export {
   getUserChannelProfile, resgisterUser, loginUser, logOutUser,
-  refreshAccessToken, getCurrentUser, changeCurrentPassword, updateAccountdetails, updateUserAvatar, updateUserCoverImg, getWatchHistory
+  refreshAccessToken, getCurrentUser, changeCurrentPassword,
+  updateAccountdetails, updateUserAvatar, updateUserCoverImg, getWatchHistory
 };
